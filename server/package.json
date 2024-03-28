@@ -1,0 +1,26 @@
+{
+  "name": "smartspaces_server",
+  "version": "1.0.0",
+  "description": "Server for SmartSpaces (A property marketplace web application).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdullahFaisal63/Smart-Spaces.git"
+  },
+  "author": "f219294_f219313_f219103",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbdullahFaisal63/Smart-Spaces/issues"
+  },
+  "homepage": "https://github.com/AbdullahFaisal63/Smart-Spaces#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.3",
+    "sequelize": "^6.37.1",
+    "sequelize-cli": "^6.6.2"
+  }
+}

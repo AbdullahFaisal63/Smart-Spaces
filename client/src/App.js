@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
+import signup from './pages/signup'
 import login from './pages/login'
 import home from './pages/home'
 
@@ -20,6 +21,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' exact Component={home}/>
+        <Route path='/signup' exact Component={signup}/>
         <Route path='/login' exact Component={login}/>
       </Routes>
     </Router>

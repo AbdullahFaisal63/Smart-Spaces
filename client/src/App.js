@@ -1,32 +1,66 @@
-// import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
-import signup from './pages/signup'
-import login from './pages/login'
-import home from './pages/home'
+import { authContext } from './helpers/authContext';
+import Signup from './pages/signup';
+import Login from './pages/login';
+import Home from './pages/home';
 
 function App() {
-  
+  const [authState, setAuthState] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const ProtectedRoute = ({ children }) => {
+    return authState ? children : <Navigate to="/login" />;
+  };
+
   useEffect(() => {
-    axios.get("http://localhost:3001/users").then((response) => {
-      console.log(response);
-    });
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      setAuthState(false);
+      setLoading(false);
+      return;
+    }
+
+    axios.get("http://localhost:3001/auth/check", { headers: { accessToken } })
+      .then((response) => {
+        if (response.data.error) {
+          setAuthState(false);
+        } else {
+          setAuthState(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking authentication:", error);
+        setAuthState(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-  <div className="App">
-    <Router>
-      <Routes>
-        <Route path='/' exact Component={home}/>
-        <Route path='/signup' exact Component={signup}/>
-        <Route path='/login' exact Component={login}/>
-      </Routes>
-    </Router>
-  </div>
-  )
+    <div className="App">
+      <authContext.Provider value={{ authState, setAuthState }}>
+        <Router>
+          <Routes>
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/' element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </Router>
+      </authContext.Provider>
+    </div>
+  );
 }
 
 export default App;

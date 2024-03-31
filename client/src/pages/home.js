@@ -1,12 +1,12 @@
 import React from 'react'
 
-function home() {
+
+function Home() {
   return (
     <div>
-        home
-        <a href='/login'>login</a>
+        Welcome {localStorage.getItem("username")}
     </div>
   )
 }
 
-export default home
+export default Home

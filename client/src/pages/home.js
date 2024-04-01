@@ -1,10 +1,11 @@
 import React from 'react'
+import Navbar from './navbar';
 
 
 function Home() {
   return (
     <div>
-        Welcome {localStorage.getItem("username")}
+      <Navbar />
     </div>
   )
 }

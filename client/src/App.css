@@ -115,3 +115,86 @@
 .text-center a:hover {
   text-decoration: underline;
 }
+
+
+
+
+
+/* Navbar */
+.navbar {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e5e5;
+  transition: background-color 0.3s ease;
+  background-color: #ffffff; /* Background color for navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+}
+
+/* Navbar Brand */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-toggler:hover {
+  background-color: #f2f2f2;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Add some space between navbar links */
+.navbar-nav .nav-item {
+  margin-right: 1rem;
+}
+
+/* Hover effect for navbar links */
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Active link styling */
+.navbar-nav .nav-item.active .nav-link {
+  color: #007bff;
+}
+
+/* Media Query for larger screens */
+@media (min-width: 992px) {
+  /* Navbar links padding */
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1.5rem;
+  }
+  
+  /* Change navbar background color on hover */
+  .navbar:hover {
+    background-color: #f8f9fa; /* Light gray */
+  }
+  
+  /* Change navbar brand color on hover */
+  .navbar:hover .navbar-brand {
+    color: #007bff; /* Blue */
+  }
+  
+  /* Change navbar toggler color on hover */
+  .navbar-toggler:hover {
+    background-color: #e9ecef; /* Lighter gray */
+  }
+}

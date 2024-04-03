@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
                 res.json({error:"wrong password"})
             }
             else{
-                const accessToken = sign({username: user.username, id: user.id}, "asdflkjh")
+                const accessToken = sign({username: user.username, id: user.id}, "asdflkjh", { expiresIn: '1m' })
                 res.json({ accessToken: accessToken, username: user.username })
             }
         

@@ -6,6 +6,8 @@ import { authContext } from './helpers/authContext';
 import Signup from './pages/signup';
 import Login from './pages/login';
 import Home from './pages/home';
+import PropPage from './pages/propPage';
+import './output.css'
 
 function App() {
   const [authState, setAuthState] = useState(false);
@@ -54,6 +56,12 @@ function App() {
             <Route path='/' element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            } />
+            {/* <Route path="/prop/:id" element={<PropPage />} /> */}
+            <Route path='/prop/:id' element={
+              <ProtectedRoute>
+                <PropPage />
               </ProtectedRoute>
             } />
           </Routes>

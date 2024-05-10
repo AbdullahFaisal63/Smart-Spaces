@@ -8,9 +8,15 @@ router.get("/", async (req, res) => {
     res.json(list)
 })
 
-router.get("/:userId", async (req, res) => {
+router.get("/usr/:userId", async (req, res) => {
     const userId = req.params.userId
     const list = await listings.findAll({ where: { userId: userId}})
+    res.json(list)
+})
+
+router.get("/:propId", async (req, res) => {
+    const propId = req.params.propId
+    const list = await listings.findAll({ where: { id: propId}})
     res.json(list)
 })
 

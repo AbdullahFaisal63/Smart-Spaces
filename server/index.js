@@ -18,6 +18,9 @@ const db = require("./models")
 const userRouter = require('./routes/users')
 app.use("/auth", userRouter)
 
+const listingRouter = require('./routes/listings')
+app.use("/listings", listingRouter)
+
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
         console.log("Server started on port 3001")

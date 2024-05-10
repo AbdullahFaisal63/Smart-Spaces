@@ -1,0 +1,23 @@
+const express = require("express")
+const router = express.Router()
+const { listings } = require("../models")
+const { where } = require("sequelize")
+
+router.get("/", async (req, res) => {
+    const list = await listings.findAll()
+    res.json(list)
+})
+
+router.get("/:userId", async (req, res) => {
+    const userId = req.params.userId
+    const list = await listings.findAll({ where: { userId: userId}})
+    res.json(list)
+})
+
+router.post("/newListing", async (req, res) => {
+    const listing = req.body
+    await listings.create(listing)
+    res.json(listings)
+})
+
+module.exports = router

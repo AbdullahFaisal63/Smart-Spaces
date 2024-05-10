@@ -31,5 +31,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 
+    users.associate = (models) => {
+        users.hasMany(models.listings)
+    }
+
     return users
 };

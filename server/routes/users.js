@@ -54,4 +54,10 @@ router.get('/check', validateToken, (req, res) => {
 
 })
 
+router.get("/:userId", async (req, res) => {
+    const userId = req.params.userId
+    const list = await users.findAll({ where: { id: userId}})
+    res.json(list)
+})
+
 module.exports = router

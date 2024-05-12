@@ -29,8 +29,8 @@ const Login = () => {
             setAuthState(false)
         }
         else{
-            localStorage.setItem("accessToken", response.data.accessToken)
-            localStorage.setItem("username", response.data.username)
+            sessionStorage.setItem("accessToken", response.data.accessToken)
+            sessionStorage.setItem("userid", response.data.userid)
             setAuthState(true)
             setLoginError('')
             navigate('/')

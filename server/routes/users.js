@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
             }
             else{
                 const accessToken = sign({username: user.username, id: user.id}, "asdflkjh", { expiresIn: '2h' })
-                res.json({ accessToken: accessToken, username: user.username })
+                res.json({ accessToken: accessToken, userid: user.id })
             }
         
         })

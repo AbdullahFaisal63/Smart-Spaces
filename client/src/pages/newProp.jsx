@@ -16,7 +16,8 @@ function NewProp() {
                 title,
                 description,
                 propertyType: type,
-                price
+                price,
+                userId: sessionStorage.getItem('userid')
             });
             // Clear input fields
             setTitle('');

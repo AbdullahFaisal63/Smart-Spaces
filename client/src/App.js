@@ -19,7 +19,7 @@ function App() {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = sessionStorage.getItem("accessToken");
     if (!accessToken) {
       setAuthState(false);
       setLoading(false);

@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for navigation
 
 function Navbar() {
   // Check if access token exists in session storage
   const isLoggedIn = sessionStorage.getItem('accessToken') !== null;
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  // State for search query
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Function to handle logout
   const handleLogout = () => {
     // Remove access token from session storage
     sessionStorage.removeItem('accessToken');
     // Optional: Redirect the user to the login page or any other page after logout
-    // window.location.href = '/login'; // Example redirect to login page
+    // navigate('/login'); // Example redirect to login page
+  };
+
+  // Function to handle search
+  const handleSearch = () => {
+    // Navigate to search page with search query in the URL
+    navigate(`/search/${encodeURIComponent(searchQuery)}`);
+  };
+
+  // Function to handle input change
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -23,7 +39,14 @@ function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            <input type="text" placeholder="Search for a space" className="bg-gray-200 rounded-md py-1 px-2 ml-2 focus:outline-none focus:ring-2 focus:ring-gray-800" />
+            <input
+              type="text"
+              placeholder="Search for a space"
+              className="bg-gray-200 rounded-md py-1 px-2 ml-2 focus:outline-none focus:ring-2 focus:ring-gray-800"
+              value={searchQuery}
+              onChange={handleChange}
+            />
+            <button onClick={handleSearch} className="bg-gray-200 rounded-md py-1 px-2 ml-2 focus:outline-none focus:ring-2 focus:ring-gray-800">Search</button>
           </div>
           <ul className="hidden lg:flex space-x-4">
             <li><a href="/" className="text-gray-600 hover:text-gray-800">Home</a></li>

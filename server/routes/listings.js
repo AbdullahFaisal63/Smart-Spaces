@@ -20,6 +20,12 @@ router.get("/:propId", async (req, res) => {
     res.json(list)
 })
 
+router.get("/search/:propTitle", async (req, res) => {
+    const propTitle = req.params.propTitle
+    const list = await listings.findAll({ where: { title: propTitle}})
+    res.json(list)
+})
+
 router.post("/newListing", async (req, res) => {
     const listing = req.body
     await listings.create(listing)

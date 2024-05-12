@@ -8,6 +8,7 @@ import Login from './pages/login';
 import Home from './pages/home';
 import PropPage from './pages/propPage';
 import NewProp from './pages/newProp';
+import Search from './pages/search';
 import './output.css'
 
 function App() {
@@ -56,6 +57,9 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/' element={
                 <Home />
+            } />
+            <Route path='/search/:query' element={
+                <Search />
             } />
             <Route path='/newProp' element={
               <ProtectedRoute>

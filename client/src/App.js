@@ -7,6 +7,7 @@ import Signup from './pages/signup';
 import Login from './pages/login';
 import Home from './pages/home';
 import PropPage from './pages/propPage';
+import NewProp from './pages/newProp';
 import './output.css'
 
 function App() {
@@ -56,6 +57,11 @@ function App() {
             <Route path='/' element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            } />
+            <Route path='/newProp' element={
+              <ProtectedRoute>
+                <NewProp />
               </ProtectedRoute>
             } />
             {/* <Route path="/prop/:id" element={<PropPage />} /> */}

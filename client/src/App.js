@@ -55,9 +55,7 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Login />} />
             <Route path='/' element={
-              <ProtectedRoute>
                 <Home />
-              </ProtectedRoute>
             } />
             <Route path='/newProp' element={
               <ProtectedRoute>
@@ -66,9 +64,7 @@ function App() {
             } />
             {/* <Route path="/prop/:id" element={<PropPage />} /> */}
             <Route path='/prop/:id' element={
-              <ProtectedRoute>
                 <PropPage />
-              </ProtectedRoute>
             } />
           </Routes>
         </Router>

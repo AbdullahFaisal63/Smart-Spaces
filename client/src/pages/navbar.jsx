@@ -1,6 +1,17 @@
 import React from 'react';
 
-const Navbar = () => {
+function Navbar() {
+  // Check if access token exists in session storage
+  const isLoggedIn = sessionStorage.getItem('accessToken') !== null;
+
+  // Function to handle logout
+  const handleLogout = () => {
+    // Remove access token from session storage
+    sessionStorage.removeItem('accessToken');
+    // Optional: Redirect the user to the login page or any other page after logout
+    // window.location.href = '/login'; // Example redirect to login page
+  };
+
   return (
     <nav className="bg-gray-100">
       <div className="container mx-auto px-4">
@@ -18,7 +29,13 @@ const Navbar = () => {
             <li><a href="/" className="text-gray-600 hover:text-gray-800">Home</a></li>
             <li><a href="example.com" className="text-gray-600 hover:text-gray-800">About</a></li>
             <li><a href="/newProp" className="text-gray-600 hover:text-gray-800">Add Listing</a></li>
-            <li><a href="example.com" className="text-gray-600 hover:text-gray-800">Contact</a></li>
+            <li>
+              {isLoggedIn ? (
+                <a href="/login" onClick={handleLogout} className="text-gray-600 hover:text-gray-800">Logout</a>
+              ) : (
+                <a href="/login" className="text-gray-600 hover:text-gray-800">Login</a>
+              )}
+            </li>
           </ul>
         </div>
       </div>

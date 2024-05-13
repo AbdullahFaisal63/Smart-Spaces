@@ -5,8 +5,8 @@ import Navbar from './navbar';
 
 const PropPage = () => {
     const { id } = useParams();
-    const [prop, setProp] = useState([]);
-    const [usr, setUsr] = useState([]);
+    const [prop, setProp] = useState({});
+    const [usr, setUsr] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showContactPopup, setShowContactPopup] = useState(false); // State for controlling popup visibility
@@ -18,8 +18,8 @@ const PropPage = () => {
             try {
                 const propResponse = await axios.get(`http://localhost:3001/listings/${id}`);
                 const usrResponse = await axios.get(`http://localhost:3001/auth/${propResponse.data[0].userId}`);
-                setProp(propResponse.data);
-                setUsr(usrResponse.data);
+                setProp(propResponse.data[0]); // Assuming response is an object, not an array
+                setUsr(usrResponse.data[0]); // Assuming response is an object, not an array
             } catch (error) {
                 setError(error);
             } finally {
@@ -50,35 +50,26 @@ const PropPage = () => {
     return (
         <div>
             <Navbar />
-            <div>
-                <h1 className="text-3xl font-semibold mb-2">{prop[0].title}</h1>
-                {/* Carousel */}
-                <div className="relative w-full max-w-md mx-auto">
-                    <div className="border border-gray-200 rounded-lg overflow-hidden">
-                        <img src='https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt={prop[0].title} className="w-full" />
+            <div className="container mx-auto px-4 py-8">
+                <div className="max-w-xl mx-auto">
+                    <h1 className="text-3xl font-semibold mb-4">{prop.title}</h1>
+                    <img src={prop.imgurl} alt={prop.title} className="w-full mb-4 rounded-lg" />
+                    <div className="mb-4">
+                        <p className="text-gray-600">Price: ${prop.price}</p>
+                        <p className="text-gray-600">Category: {prop.propertyType}</p>
+                        <p className="text-gray-600">Seller: {usr.firstname}</p>
                     </div>
-                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 px-2 py-1 rounded-full cursor-pointer">
-                        &lt;
+                    <div className="mb-4">
+                        <p className="text-gray-700">{prop.description}</p>
                     </div>
-                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 px-2 py-1 rounded-full cursor-pointer">
-                        &gt;
+                    <div className="mb-4">
+                        <button 
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+                            onClick={handleContactSeller} // Open popup or redirect to login page on button click
+                        >
+                            Contact Seller
+                        </button>
                     </div>
-                </div>
-                <div className="mb-4">
-                    <p className="text-gray-600">Price: ${prop[0].price}</p>
-                    <p className="text-gray-600">Category: {prop[0].propertyType}</p>
-                    <p className="text-gray-600">Seller: {prop[0].userId}</p>
-                </div>
-                <div className="mb-4">
-                    <p className="text-gray-700">{prop[0].description}</p>
-                </div>
-                <div className="mb-4">
-                    <button 
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
-                        onClick={handleContactSeller} // Open popup or redirect to login page on button click
-                    >
-                        Contact Seller
-                    </button>
                 </div>
             </div>
             {/* Contact Popup */}
@@ -96,9 +87,9 @@ const PropPage = () => {
                                         <h3 className="text-lg leading-6 font-medium text-gray-900">Contact Seller</h3>
                                         {/* Add seller contact info here */}
                                         <br></br>
-                                        Name: {usr[0].firstname}<br></br>
-                                        Phone: {usr[0].phone}<br></br>
-                                        Address: {usr[0].address}
+                                        Name: {usr.firstname}<br></br>
+                                        Phone: {usr.phone}<br></br>
+                                        Address: {usr.address}
                                     </div>
                                 </div>
                             </div>

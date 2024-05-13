@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        area: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        imgurl: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
     })
 
     return listings

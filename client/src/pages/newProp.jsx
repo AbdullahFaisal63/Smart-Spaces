@@ -7,6 +7,8 @@ function NewProp() {
     const [description, setDescription] = useState('');
     const [type, setType] = useState('');
     const [price, setPrice] = useState('');
+    const [area, setArea] = useState('');
+    const [imageUrl, setImageUrl] = useState(''); // New state for image URL
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const handleSubmit = async (e) => {
@@ -17,6 +19,8 @@ function NewProp() {
                 description,
                 propertyType: type,
                 price,
+                area,
+                imgurl: imageUrl, // Include imageUrl in the request body
                 userId: sessionStorage.getItem('userid')
             });
             // Clear input fields
@@ -24,6 +28,8 @@ function NewProp() {
             setDescription('');
             setType('');
             setPrice('');
+            setArea('');
+            setImageUrl('');
             // Show success message
             setShowSuccessMessage(true);
             // Hide success message after 3 seconds
@@ -76,6 +82,30 @@ function NewProp() {
                                         className="form-input w-full border border-gray-400 rounded py-2 px-3"
                                         id="type"
                                         name="type"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="area" className="block text-gray-700 text-sm font-bold mb-2">Area</label>
+                                    <input
+                                        type="text"
+                                        value={area}
+                                        onChange={(e) => setArea(e.target.value)}
+                                        className="form-input w-full border border-gray-400 rounded py-2 px-3"
+                                        id="area"
+                                        name="area"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="imageUrl" className="block text-gray-700 text-sm font-bold mb-2">Image URL</label>
+                                    <input
+                                        type="text"
+                                        value={imageUrl}
+                                        onChange={(e) => setImageUrl(e.target.value)}
+                                        className="form-input w-full border border-gray-400 rounded py-2 px-3"
+                                        id="imageUrl"
+                                        name="imageUrl"
                                         required
                                     />
                                 </div>

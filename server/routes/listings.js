@@ -20,6 +20,12 @@ router.get("/:propId", async (req, res) => {
     res.json(list)
 })
 
+router.get("/del/:propId", async (req, res) => {
+    const propId = req.params.propId
+    const list = await listings.destroy({ where: { id: propId}})
+    res.json(list)
+})
+
 router.get("/search/:propTitle", async (req, res) => {
     const propTitle = req.params.propTitle
     const list = await listings.findAll({ where: { title: propTitle}})

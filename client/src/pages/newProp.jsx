@@ -8,8 +8,20 @@ function NewProp() {
     const [type, setType] = useState('');
     const [price, setPrice] = useState('');
     const [area, setArea] = useState('');
-    const [imageUrl, setImageUrl] = useState(''); // New state for image URL
+    const [imageUrl, setImageUrl] = useState('');
+    const [location, setLocation] = useState('');
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+    // Options for property type dropdown
+    const propertyTypeOptions = [
+        'House',
+        'Apartment',
+        'Residential Plot',
+        'Commercial Plot',
+        'Shop',
+        'Warehouse',
+        'Others'
+    ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +32,8 @@ function NewProp() {
                 propertyType: type,
                 price,
                 area,
-                imgurl: imageUrl, // Include imageUrl in the request body
+                imgurl: imageUrl,
+                location,
                 userId: sessionStorage.getItem('userid')
             });
             // Clear input fields
@@ -30,6 +43,7 @@ function NewProp() {
             setPrice('');
             setArea('');
             setImageUrl('');
+            setLocation('');
             // Show success message
             setShowSuccessMessage(true);
             // Hide success message after 3 seconds
@@ -56,6 +70,7 @@ function NewProp() {
                                         type="text"
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
+                                        placeholder="House..."
                                         className="form-input w-full border border-gray-400 rounded py-2 px-3"
                                         id="title"
                                         name="title"
@@ -67,6 +82,7 @@ function NewProp() {
                                     <textarea
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
+                                        placeholder="Enter description"
                                         className="form-input w-full border border-gray-400 rounded py-2 px-3"
                                         id="description"
                                         name="description"
@@ -74,16 +90,20 @@ function NewProp() {
                                     ></textarea>
                                 </div>
                                 <div className="mb-4">
-                                    <label htmlFor="type" className="block text-gray-700 text-sm font-bold mb-2">Type</label>
-                                    <input
-                                        type="text"
+                                    <label htmlFor="type" className="block text-gray-700 text-sm font-bold mb-2">Property Type</label>
+                                    <select
                                         value={type}
                                         onChange={(e) => setType(e.target.value)}
-                                        className="form-input w-full border border-gray-400 rounded py-2 px-3"
+                                        className="form-select w-full border border-gray-400 rounded py-2 px-3"
                                         id="type"
                                         name="type"
                                         required
-                                    />
+                                    >
+                                        <option value="">Select Property Type</option>
+                                        {propertyTypeOptions.map(option => (
+                                            <option key={option} value={option}>{option}</option>
+                                        ))}
+                                    </select>
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="area" className="block text-gray-700 text-sm font-bold mb-2">Area</label>
@@ -91,6 +111,7 @@ function NewProp() {
                                         type="text"
                                         value={area}
                                         onChange={(e) => setArea(e.target.value)}
+                                        placeholder="sqft"
                                         className="form-input w-full border border-gray-400 rounded py-2 px-3"
                                         id="area"
                                         name="area"
@@ -103,9 +124,23 @@ function NewProp() {
                                         type="text"
                                         value={imageUrl}
                                         onChange={(e) => setImageUrl(e.target.value)}
+                                        placeholder="Enter image URL"
                                         className="form-input w-full border border-gray-400 rounded py-2 px-3"
                                         id="imageUrl"
                                         name="imageUrl"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">Location</label>
+                                    <input
+                                        type="text"
+                                        value={location}
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        placeholder="Lahore"
+                                        className="form-input w-full border border-gray-400 rounded py-2 px-3"
+                                        id="location"
+                                        name="location"
                                         required
                                     />
                                 </div>
@@ -115,6 +150,7 @@ function NewProp() {
                                         type="number"
                                         value={price}
                                         onChange={(e) => setPrice(e.target.value)}
+                                        placeholder="Rs."
                                         className="form-input w-full border border-gray-400 rounded py-2 px-3"
                                         id="price"
                                         name="price"

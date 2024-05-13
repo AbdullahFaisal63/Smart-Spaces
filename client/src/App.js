@@ -10,6 +10,7 @@ import PropPage from './pages/propPage';
 import NewProp from './pages/newProp';
 import Search from './pages/search';
 import About from './pages/about';
+import Mylistings from './pages/myListings';
 import './output.css'
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
             <Route path='/search/:query' element={<Search />} />
+            <Route path='/mylistings' element={<ProtectedRoute><Mylistings /></ProtectedRoute>} />
             <Route path='/newProp' element={
               <ProtectedRoute>
                 <NewProp />

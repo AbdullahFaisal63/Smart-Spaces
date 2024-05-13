@@ -51,7 +51,7 @@ function Navbar() {
           <ul className="hidden lg:flex space-x-4">
             <li><a href="/" className="text-gray-600 hover:text-gray-800">Home</a></li>
             <li><a href="/about" className="text-gray-600 hover:text-gray-800">About</a></li>
-            {isLoggedIn && <li><a href="/newProp" className="text-gray-600 hover:text-gray-800">Add Listing</a></li>}
+            {isLoggedIn && <li><a href="/mylistings" className="text-gray-600 hover:text-gray-800">My Listings</a></li>}
             <li>
               {isLoggedIn ? (
                 <a href="/" onClick={handleLogout} className="text-gray-600 hover:text-gray-800">Logout</a>

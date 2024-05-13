@@ -55,7 +55,7 @@ const PropPage = () => {
                     <h1 className="text-3xl font-semibold mb-4">{prop.title}</h1>
                     <img src={prop.imgurl} alt={prop.title} className="w-full mb-4 rounded-lg" />
                     <div className="mb-4">
-                        <p className="text-gray-600">Price: ${prop.price}</p>
+                        <p className="text-gray-600">Price: Rs {prop.price}</p>
                         <p className="text-gray-600">Category: {prop.propertyType}</p>
                         <p className="text-gray-600">Seller: {usr.firstname}</p>
                     </div>

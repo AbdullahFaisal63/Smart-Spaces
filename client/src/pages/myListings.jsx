@@ -1,8 +1,9 @@
+// Home.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
+import { Link } from 'react-router-dom';
 import Navbar from './navbar';
-import PropCard from './propCard';
+import MyProductCard from './myPropCard';
 
 function Home() {
   const [prop, setProp] = useState([]);
@@ -16,7 +17,13 @@ function Home() {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
+  }, []);
+
+  // Function to handle deletion of a card
+  const handleDelete = (productId) => {
+    // Filter out the deleted product from the state
+    setProp(prevProp => prevProp.filter(item => item.id !== productId));
+  };
 
   return (
     <div>
@@ -28,9 +35,7 @@ function Home() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {prop.map(product => (
-            <a key={product.id} href={`/prop/${product.id}`}>
-              <PropCard product={product} />
-            </a>
+            <MyProductCard key={product.id} product={product} onDelete={handleDelete} />
           ))}
         </div>
       </div>
@@ -39,4 +44,3 @@ function Home() {
 }
 
 export default Home;
-    

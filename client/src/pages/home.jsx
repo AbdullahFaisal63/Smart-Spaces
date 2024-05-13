@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './navbar';
+import Footer from './footer';
 import PropCard from './propCard';
 
 function Home() {
@@ -28,8 +29,10 @@ function Home() {
               <PropCard product={product} />
             </a>
           ))}
+        
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

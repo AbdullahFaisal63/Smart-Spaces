@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './navbar';
 
@@ -10,6 +10,8 @@ const PropPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showContactPopup, setShowContactPopup] = useState(false); // State for controlling popup visibility
+    const isLoggedIn = sessionStorage.getItem('accessToken') !== null;
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,7 +19,7 @@ const PropPage = () => {
                 const propResponse = await axios.get(`http://localhost:3001/listings/${id}`);
                 const usrResponse = await axios.get(`http://localhost:3001/auth/${propResponse.data[0].userId}`);
                 setProp(propResponse.data);
-                setUsr(usrResponse.data)
+                setUsr(usrResponse.data);
             } catch (error) {
                 setError(error);
             } finally {
@@ -27,6 +29,15 @@ const PropPage = () => {
 
         fetchData();
     }, [id]);
+
+    // Function to handle contact seller button click
+    const handleContactSeller = () => {
+        if (isLoggedIn) {
+            setShowContactPopup(true);
+        } else {
+            navigate('/login'); // Redirect to login page if not logged in
+        }
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -64,7 +75,7 @@ const PropPage = () => {
                 <div className="mb-4">
                     <button 
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
-                        onClick={() => setShowContactPopup(true)} // Open popup on button click
+                        onClick={handleContactSeller} // Open popup or redirect to login page on button click
                     >
                         Contact Seller
                     </button>

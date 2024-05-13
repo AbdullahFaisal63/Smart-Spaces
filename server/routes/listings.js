@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const { listings } = require("../models")
 const { where } = require("sequelize")
+const { Op } = require('sequelize');
 
 router.get("/", async (req, res) => {
     const list = await listings.findAll()
@@ -27,10 +28,16 @@ router.get("/del/:propId", async (req, res) => {
 })
 
 router.get("/search/:propTitle", async (req, res) => {
-    const propTitle = req.params.propTitle
-    const list = await listings.findAll({ where: { title: propTitle}})
-    res.json(list)
-})
+    const propTitle = req.params.propTitle;
+    const list = await listings.findAll({ 
+        where: { 
+            title: { 
+                [Op.like]: `${propTitle}%` 
+            }
+        }
+    });
+    res.json(list);
+});
 
 router.post("/newListing", async (req, res) => {
     const listing = req.body

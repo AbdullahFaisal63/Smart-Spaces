@@ -14,7 +14,7 @@ function Navbar() {
     // Remove access token from session storage
     sessionStorage.removeItem('accessToken');
     // Optional: Redirect the user to the login page or any other page after logout
-    navigate('/login'); // Example redirect to login page
+    // navigate('/login'); // Example redirect to login page
   };
 
   // Function to handle search

@@ -45,4 +45,24 @@ router.post("/newListing", async (req, res) => {
     res.json(listings)
 })
 
+router.post("/update/:propId", async (req, res) => {
+    const propId = req.params.propId; // Get the propId from the route parameter
+    const updatedListingData = req.body; // Assuming req.body contains the updated data
+
+    try {
+        // Assuming 'listings' is your Sequelize model
+        const updatedListing = await listings.update(updatedListingData, {
+            where: {
+                id: propId // Update the listing where propId matches the provided propId
+            }
+        });
+
+        res.json(updatedListing); // Return the updated listing
+    } catch (error) {
+        console.error('Error updating listing:', error);
+        res.status(500).json({ error: 'Failed to update listing' });
+    }
+});
+
+
 module.exports = router

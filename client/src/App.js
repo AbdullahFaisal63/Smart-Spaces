@@ -11,6 +11,7 @@ import NewProp from './pages/newProp';
 import Search from './pages/search';
 import About from './pages/about';
 import Mylistings from './pages/myListings';
+import UpdateListing from './pages/updateListing';
 import './output.css'
 
 function App() {
@@ -64,6 +65,11 @@ function App() {
             <Route path='/newProp' element={
               <ProtectedRoute>
                 <NewProp />
+              </ProtectedRoute>
+            } />
+            <Route path='/update/:id' element={
+              <ProtectedRoute>
+                <UpdateListing />
               </ProtectedRoute>
             } />
             <Route path='/prop/:id' element={

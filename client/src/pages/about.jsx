@@ -5,7 +5,7 @@ function About() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto p-8">
+      <div className="mt-20 container mx-auto p-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-4 text-gray-800">Our Mission</h2>
           <p className="mb-4 text-gray-600">

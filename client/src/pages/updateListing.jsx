@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Navbar from './navbar'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Navbar from './navbar';
 import axios from 'axios';
 import Footer from './footer';
 
 function NewProp() {
+    const { id } = useParams();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [type, setType] = useState('');
@@ -11,6 +13,7 @@ function NewProp() {
     const [area, setArea] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [location, setLocation] = useState('');
+    const [loading, setLoading] = useState(true); // State to manage loading state
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     // Options for property type dropdown
@@ -24,10 +27,31 @@ function NewProp() {
         'Others'
     ];
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/listings/${id}`);
+                const listingData = response.data[0];
+                setTitle(listingData.title);
+                setDescription(listingData.description);
+                setType(listingData.propertyType);
+                setPrice(listingData.price);
+                setArea(listingData.area);
+                setImageUrl(listingData.imgurl);
+                setLocation(listingData.location);
+                setLoading(false); // Set loading to false after data is fetched
+            } catch (error) {
+                console.error('Error fetching listing details:', error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3001/listings/newListing', {
+            await axios.post(`http://localhost:3001/listings/update/${id}`, {
                 title,
                 description,
                 propertyType: type,
@@ -56,6 +80,10 @@ function NewProp() {
         }
     };
 
+    if (loading) {
+        return <div>Loading...</div>; // Render loading state until data is fetched
+    }
+
     return (
         <div>
             <Navbar />
@@ -63,7 +91,7 @@ function NewProp() {
                 <div className="container mx-auto">
                     <div className="flex justify-center">
                         <div className="w-full md:w-1/2">
-                            <h2 className="text-3xl text-center mb-4 font-bold text-gray-800">Add New Property</h2>
+                            <h2 className="text-3xl text-center mb-4 font-bold text-gray-800">Update details</h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title</label>
@@ -167,7 +195,7 @@ function NewProp() {
                             </form>
                             {showSuccessMessage && (
                                 <div style={{ color: 'green', padding: 20 }}>
-                                    Property listed successfully!
+                                    Property updated successfully!
                                 </div>
                             )}
                         </div>

@@ -4,10 +4,11 @@ import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { authContext } from '../helpers/authContext';
+
 const Login = () => {
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
-  const {setAuthState} = useContext(authContext)
+  const { setAuthState } = useContext(authContext);
 
   const initialValues = {
     email: '',
@@ -22,76 +23,40 @@ const Login = () => {
   const handleSubmit = (values, { setSubmitting }) => {
     axios.post("http://localhost:3001/auth/login", values)
       .then((response) => {
-        // console.log(response.data)
-        if(response.data.error){
-            setLoginError(response.data.error)
-            setAuthState(false)
-        }
-        else{
-            sessionStorage.setItem("accessToken", response.data.accessToken)
-            sessionStorage.setItem("userid", response.data.userid)
-            setAuthState(true)
-            setLoginError('')
-            navigate('/')
+        if (response.data.error) {
+          setLoginError(response.data.error);
+          setAuthState(false);
+        } else {
+          sessionStorage.setItem("accessToken", response.data.accessToken);
+          sessionStorage.setItem("userid", response.data.userid);
+          setAuthState(true);
+          setLoginError('');
+          navigate('/');
         }
       })
       .catch((error) => {
-        console.error('Registration failed:', error);
+        console.error('Login failed:', error);
       })
       .finally(() => {
         setSubmitting(false);
       });
   };
 
-  // return (
-  // <div className="container mx-auto mt-5">
-  //   <div className="flex justify-center">
-  //     <div className="w-full md:w-1/2">
-  //       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-  //         <h2 className="text-2xl text-center mb-4">Login</h2>
-  //         {loginError && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">{loginError}</div>}
-  //         <Formik
-  //           initialValues={initialValues}
-  //           validationSchema={validationSchema}
-  //           onSubmit={handleSubmit}
-  //         >
-  //           {({ isSubmitting }) => (
-  //             <Form>
-  //               <div className="mb-4">
-  //                 <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-  //                 <Field type="email" className="form-input w-full" id="email" name="email" />
-  //                 <ErrorMessage name="email" component="div" className="text-red-500 text-xs italic" />
-  //               </div>
-  //               <div className="mb-6">
-  //                 <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-  //                 <Field type="password" className="form-input w-full" id="password" name="password" />
-  //                 <ErrorMessage name="password" component="div" className="text-red-500 text-xs italic" />
-  //               </div>
-  //               <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">
-  //                 {isSubmitting ? 'Logging in...' : 'Login'}
-  //               </button>
-  //             </Form>
-  //           )}
-  //         </Formik>
-  //       </div>
-  //       <div className="text-center">
-  //         Don't have an account? <Link to="/signup" className="text-blue-500">Signup here</Link>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
-  // );
   return (
-    <div
-      className="bg-cover min-h-screen flex justify-center items-center"
-      style={{ backgroundImage: "url('/path/to/background/image.jpg')" }}
-    >
+    <section className="bg-gray-50 min-h-screen flex justify-center items-center">
       <div className="container mx-auto">
         <div className="flex justify-center">
           <div className="w-full md:w-1/2">
-            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <h2 className="text-3xl text-center mb-4 font-bold text-gray-800">Login</h2>
-              {/* Display login error message */}
+            <div className="bg-white rounded-lg shadow-md p-6 sm:p-8">
+              <div className="text-center mb-6">
+                <a href="/" className="flex items-center justify-center mb-10 text-2xl font-semibold text-gray-90">
+                  <img className="h-8 mr-2" src="1.png" alt="logo" />
+                  Smart Spaces
+                </a>
+              </div>
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x text-center mb-6">
+                Sign in to your account
+              </h1>
               {loginError && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
                   {loginError}
@@ -103,39 +68,68 @@ const Login = () => {
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
-                  <Form>
-                    <div className="mb-4">
-                      <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-                        Email
+                  <Form className="space-y-4 md:space-y-6">
+                    <div>
+                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
+                        Your email
                       </label>
-                      <Field type="email" className="form-input w-full border border-gray-400 rounded py-2 px-3" id="email" name="email" />
+                      <Field
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="name@company.com"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        required
+                      />
                       <ErrorMessage name="email" component="div" className="text-red-500 text-xs italic" />
                     </div>
-                    <div className="mb-6">
-                      <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+                    <div>
+                      <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
                         Password
                       </label>
-                      <Field type="password" className="form-input w-full border border-gray-400 rounded py-2 px-3" id="password" name="password" />
+                      <Field
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="••••••••"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        required
+                      />
                       <ErrorMessage name="password" component="div" className="text-red-500 text-xs italic" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            id="remember"
+                            type="checkbox"
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="remember" className="text-gray-500">Remember me</label>
+                        </div>
+                      </div>
+                      <Link to="#" className="text-sm font-medium text-yellow-600 hover:underline">Forgot password?</Link>
                     </div>
                     <button
                       type="submit"
-                      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full transition duration-300 ease-in-out"
+                      className="w-full text-white bg-c6a569 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-c6a569 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Logging in...' : 'Login'}
+                      {isSubmitting ? 'Logging in...' : 'Sign in'}
                     </button>
+                    <p className="text-sm font-light text-gray-500">
+                      Don’t have an account yet? <Link to="/signup" className="font-medium text-yellow-600 hover:underline">Sign up</Link>
+                    </p>
                   </Form>
                 )}
               </Formik>
             </div>
-            <div className="text-center text-gray-700">
-              Don't have an account? <Link to="/signup" className="text-blue-500">Signup here</Link>
-            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

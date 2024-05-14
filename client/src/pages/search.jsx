@@ -24,7 +24,7 @@ function Search() {
   return (
     <div>
       <Navbar />
-      <h1 className="flex justify-center py-4">Search results</h1>
+      <h1 className="mt-20 mb-12 flex justify-center py-4 text-3xl font-bold">Search results</h1>
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {prop.map(product => (
@@ -40,7 +40,7 @@ function Search() {
     return(
         <div>
       <Navbar />
-      <h1 className="flex justify-center py-4">No results found!</h1>
+      <h1 className="mt-20 mb-12 flex justify-center py-4 text-3xl font-bold">No results found!</h1>
     </div>
     )
   }

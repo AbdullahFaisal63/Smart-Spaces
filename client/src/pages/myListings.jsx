@@ -1,9 +1,9 @@
-// Home.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from './navbar';
 import MyProductCard from './myPropCard';
+import Footer from './footer';
 
 function Home() {
   const [prop, setProp] = useState([]);
@@ -27,11 +27,14 @@ function Home() {
 
   return (
     <div>
+      <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="container mx-auto">
-        <h1 className="text-3xl font-semibold text-center mt-8 mb-4">My Listings</h1>
+        <h1 className="mt-20 mb-12 flex justify-center py-4 text-3xl font-bold">My Listings</h1>
         <div className="mb-4 flex justify-end">
-          <Link to="/newProp" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Add New Listing</Link>
+          <Link to="/newProp" className="text-white bg-c6a569 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-c6a569 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Add New Listing
+          </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {prop.map(product => (
@@ -39,6 +42,8 @@ function Home() {
           ))}
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   )
 }
